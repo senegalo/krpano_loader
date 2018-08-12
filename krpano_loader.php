@@ -31,9 +31,17 @@ function krpano($args) {
   ob_start()
 ?>
 <div id="pano" style="width:<?php echo $args['width']; ?>px; height:<?php echo $args['height']; ?>px;"></div>
+  <script src="<?php echo plugin_url(); ?>/krpano_tour_manager.js"></script>
   <script src="<?php echo $tour_path; ?>/tour.js"></script>
   <script>
-    embedpano({swf:"<?php echo $tour_path; ?>/tour.swf", xml:"<?php echo $tour_path; ?>/tour.xml", target:"pano"});
+    embedpano({
+      swf:"<?php echo $tour_path; ?>/tour.swf",
+      xml:"<?php echo $tour_path; ?>/tour.xml",
+      target:"pano",
+      onready:function(krpano){
+        new KRPanoTourManager(krpano);
+      }
+    });
   </script>
 <?php
   return ob_get_clean();
@@ -47,6 +55,10 @@ function tour_path($tour_name){
   return wp_upload_dir(null, false)["baseurl"]."/tours/".$tour_name;
 }
 
+function plugin_url() {
+  return plugins_url()."/krpano_loader";
+}
+
 /**
  * Adds a content that will be hidden at start and then visible
  * by javascript when the specific scene ID is displayed
@@ -55,7 +67,7 @@ function tour_path($tour_name){
 function scene_content($attr, $content) {
   ob_start();
   ?>
-  <div id="<?php echo $attr['name']; ?>" style="display:none;"> <?php echo $content; ?> </div>
+  <div id="<?php echo $attr['name']; ?>" class="krpano-tour-content" style="display:none;"> <?php echo $content; ?> </div>
   <?php
 
   return ob_get_clean();
