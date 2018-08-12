@@ -14,11 +14,19 @@ Version: 0.1.0
 
 /**
  * KRpano Shortcode
- * responsds to shortcodes like: [krpano tour="tour1"]
- * and returns the proper code to include the panorama
+ * responsds to shortcodes like: [krpano tour="tour1" width="400" height="300"]
+ * tour: the dir name of the tour in the uploads/tours directory
+ * width: Optional tour width. Default: 400
+ * height: Optional tour heigt. Default: 300
+ * returns the proper code to include the panorama
  */
 
 function krpano($args) {
+  $args = shortcode_atts( array(
+    'width' => '400',
+    'height' => '300',
+    'tour' => null
+  ), $args);
   $tour_path = tour_path($args['tour']);
   ob_start()
 ?>
@@ -39,5 +47,20 @@ function tour_path($tour_name){
   return wp_upload_dir(null, false)["baseurl"]."/tours/".$tour_name;
 }
 
+/**
+ * Adds a content that will be hidden at start and then visible
+ * by javascript when the specific scene ID is displayed
+ */
+
+function scene_content($attr, $content) {
+  ob_start();
+  ?>
+  <div id="<?php echo $attr['name']; ?>" style="display:none;"> <?php echo $content; ?> </div>
+  <?php
+
+  return ob_get_clean();
+}
+
 add_shortcode('krpano', 'krpano');
+add_shortcode('krpano_scene', 'scene_content');
 ?>
