@@ -104,4 +104,6 @@ In the page/post you already embeded the tour in add the following shortcodes wh
   The Sun is nothing but a huge place where matter goes to get fused together. it's really a big complicated place !
 [/krpano_scene]
 ```
-In the above shortcodes the **name** parameter is the name of scene from the `wp-content/uploads/tours/my_awesome_tour/tour.xml` file. When the scene *scene_001* is loaded the content from *scene_002* will be hidden and the content from *scene_001* will be displayed and vice versa.
+In the above shortcodes the **name** parameter is the name of scene from the `/tours/my_awesome_tour/tour.xml` file. 
+
+When the *scene_001* is loaded it's specific content is displayed and everything else is hidden same for *scene_002*.
