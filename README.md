@@ -5,7 +5,17 @@ display special content for each panorama.
 
 ## Instalation
 
-* Clone the project into your `wp-content/plugins` directory.
+### Using Git Releases
+* Go to [releases](https://github.com/senegalo/krpano_loader/releases)
+* Download the latest release
+* Extract the plugin folder and place and move it to `wp-content/plugins/krpano_loader`
+
+### Or Using Git
+
+* Clone the project into your `wp-content/plugins` directory 
+```bash
+git clone git@github.com:senegalo/krpano_loader.git ./wp-content/plugins/krpano_loader
+```
 * Go to the plugin management section in Wordpress and enable KRpano.
 
 ## Tours Upload
