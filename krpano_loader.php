@@ -1,7 +1,7 @@
 <?php
 /**
  * @package krpano_loader
- * @version 0.1.0 
+ * @version 0.1.1
  */
 /*
 Plugin Name: KRpano Loader
@@ -52,11 +52,21 @@ function krpano($args) {
  * Assumes that the tours are stored in the uploads/tours
  */
 function tour_path($tour_name){
-  return wp_upload_dir(null, false)["baseurl"]."/tours/".$tour_name;
+  return honor_ssl(wp_upload_dir(null, false)["baseurl"])."/tours/".$tour_name;
 }
 
 function plugin_url() {
-  return plugins_url()."/krpano_loader";
+  return honor_ssl(plugins_url())."/krpano_loader";
+}
+
+/**
+ * Changes the url protocol if ssl is detected
+ */
+function honor_ssl($url) {
+  if(is_ssl()){
+    return str_replace( 'http://', 'https://', $url );
+  }
+  return $url;
 }
 
 /**
